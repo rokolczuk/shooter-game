@@ -14,7 +14,7 @@ public class GameConstants
    public static const PLAYER_BULLET_SPEED:Point = new Point(0, -6);
    public static const ENEMY_BULLET_SPEED:Point = new Point(0, 4);
    public static const PLAYER_SHOOT_COOLDOWN:uint = 200;
-   public static const ENEMY_SPAWN_PROBABILITY:Number = 0.04;
+   public static const ENEMY_SPAWN_PROBABILITY:Number = 0.007;
    public static const ENEMY_SPAWN_MARGIN_X:int = 50;
    public static const ENEMY_MIN_SPEED_Y:Number = 1;
    public static const ENEMY_MAX_SPEED_Y:Number = 2;
@@ -26,6 +26,7 @@ public class GameConstants
    public static const PLAYER_HIT_DAMAGE:Number = 1;
    public static const ENEMY_HIT_DAMAGE:Number = 1;
    public static const ENEMY_SHOOT_PROBABILITY:Number = 0.005;
+   public static const OUT_OF_SCREEN_MARGIN:uint = 100;
 
 }
 }

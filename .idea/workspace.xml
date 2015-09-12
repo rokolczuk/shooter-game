@@ -26,11 +26,21 @@
       <file leaf-file-name="GameController.as" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/GameController.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52272725">
-              <caret line="203" column="13" selection-start-line="203" selection-start-column="13" selection-end-line="203" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.72727275">
+              <caret line="64" column="19" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
               <folding>
                 <element signature="e#111#166#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IGameController.as" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/IGameController.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -47,24 +57,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DamageComponent.as" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/DamageComponent.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="37" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Player.as" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Player.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="165" selection-start-line="31" selection-start-column="165" selection-end-line="31" selection-end-column="165" />
-              <folding>
-                <element signature="e#114#202#0" expanded="true" />
-              </folding>
+              <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,9 +71,21 @@
         <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameViewMediator.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
                 <element signature="e#91#151#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MousePlayerController.as" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/MousePlayerController.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="61" column="90" selection-start-line="61" selection-start-column="90" selection-end-line="61" selection-end-column="90" />
+              <folding>
+                <element signature="e#113#173#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,7 +107,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/model/GameConstants.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#102#161#0" expanded="true" />
@@ -130,18 +140,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bullet.as" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Bullet.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="47" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-              <folding>
-                <element signature="e#114#202#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -156,7 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/ApplicationConstants.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/components/IPlayerController.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/components/MousePlayerController.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/components/GameController.as" />
@@ -190,7 +187,6 @@
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/ViewComponent.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/PositionableComponent.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/MovingComponent.as" />
-        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/MousePlayerController.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/ShooterGameContext.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/PlayerShip.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/CollidableComponent.as" />
@@ -199,13 +195,15 @@
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Bullet.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/event/EntityEvent.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameView.as" />
-        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameViewMediator.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/EntitiesMover.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/Collider.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/ShootingComponent.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Player.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Enemy.as" />
+        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/MousePlayerController.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/model/GameConstants.as" />
+        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameViewMediator.as" />
+        <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/IGameController.as" />
         <option value="$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/GameController.as" />
       </list>
     </option>
@@ -218,8 +216,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="29" />
+    <option name="x" value="-27" />
+    <option name="y" value="35" />
     <option name="width" value="1920" />
     <option name="height" value="1053" />
   </component>
@@ -707,15 +705,15 @@
       <created>1442060818528</created>
       <option name="number" value="Default" />
       <updated>1442060818528</updated>
-      <workItem from="1442060822793" duration="22634000" />
+      <workItem from="1442060822793" duration="24593000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22634000" />
+    <option name="totallyTimeSpent" value="24593000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="29" width="1920" height="1053" extended-state="6" />
+    <frame x="-27" y="35" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -724,7 +722,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33333334" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30081302" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30081302" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -743,7 +741,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -831,14 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/IGameController.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/IPlayerController.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1433121">
@@ -908,16 +898,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#116#185#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/MousePlayerController.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="71" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-          <folding>
-            <element signature="e#113#173#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -996,32 +976,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameViewMediator.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
-          <folding>
-            <element signature="e#91#151#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/components/concrete/ShootingComponent.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
           <folding>
             <element signature="e#116#185#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Player.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="165" selection-start-line="31" selection-start-column="165" selection-end-line="31" selection-end-column="165" />
-          <folding>
-            <element signature="e#114#202#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1046,10 +1006,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/entities/concrete/Player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/playerController/MousePlayerController.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="90" selection-start-line="61" selection-start-column="90" selection-end-line="61" selection-end-column="90" />
+          <folding>
+            <element signature="e#113#173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/model/GameConstants.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#102#161#0" expanded="true" />
@@ -1057,10 +1035,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/view/ShooterGameViewMediator.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#91#151#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/IGameController.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/rokolczuk/shootergame/game/gameLogic/gameController/GameController.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52272725">
-          <caret line="203" column="13" selection-start-line="203" selection-start-column="13" selection-end-line="203" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.72727275">
+          <caret line="64" column="19" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
           <folding>
             <element signature="e#111#166#0" expanded="true" />
           </folding>

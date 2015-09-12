@@ -7,5 +7,7 @@ public interface IGameController
 {
     function update():void;
     function dispose():void;
+    function pause():void;
+    function resume():void;
 }
 }

@@ -8,24 +8,21 @@ import com.rokolczuk.shootergame.game.event.EntityViewEvent;
 import com.rokolczuk.shootergame.game.event.PlayerShipEvent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.CollidableComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.DamageComponent;
-import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ShootingComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.HealthComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.MovingComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.PositionableComponent;
+import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ShootingComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ViewComponent;
 import com.rokolczuk.shootergame.game.gameLogic.enemies.IEnemiesEmmiter;
 import com.rokolczuk.shootergame.game.gameLogic.entities.GameEntity;
 import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Bullet;
 import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Player;
-import com.rokolczuk.shootergame.game.gameLogic.model.CollisionMasks;
 import com.rokolczuk.shootergame.game.gameLogic.model.GameConstants;
 import com.rokolczuk.shootergame.game.gameLogic.playerController.IPlayerController;
 import com.rokolczuk.shootergame.game.model.GameModel;
-import com.rokolczuk.shootergame.graphics.PlayerBulletSymbol;
 
 import flash.display.MovieClip;
-
-import flash.display.Sprite;
+import flash.display.Stage;
 import flash.events.IEventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -40,16 +37,20 @@ public class GameController implements IGameController
 
     private var _entities:Vector.<GameEntity> = new Vector.<GameEntity>();
     private var _enemiesEmmiter:IEnemiesEmmiter;
+    private var _stage:Stage;
+
+    private var _paused:Boolean = false;
 
 
     function GameController(playerController:IPlayerController, playerShip:Player, eventDispatcher:IEventDispatcher,
-                            gameModel:GameModel, enemiesEmmiter:IEnemiesEmmiter)
+                            gameModel:GameModel, enemiesEmmiter:IEnemiesEmmiter, stage:Stage)
     {
         _playerController = playerController;
         _eventDispatcher = eventDispatcher;
         _gameModel = gameModel;
         _playerShip = playerShip;
         _enemiesEmmiter = enemiesEmmiter;
+        _stage = stage;
         _entities.push(playerShip);
 
         _playerController.enable();
@@ -59,6 +60,10 @@ public class GameController implements IGameController
 
     public function update():void
     {
+        if(_paused)
+        {
+            return;
+        }
 
         _enemiesEmmiter.update();
 
@@ -69,7 +74,22 @@ public class GameController implements IGameController
             moveEntity(entity);
             checkCollisionsFor(entity);
             shootBullet(entity);
+            removeIfOutOfBounds(entity);
 
+        }
+    }
+
+    private function removeIfOutOfBounds(entity:GameEntity):void
+    {
+        if(entity.hasComponent(PositionableComponent))
+        {
+            var positionableComponent:PositionableComponent = PositionableComponent(entity.getComponent(PositionableComponent));
+
+            if(positionableComponent.x < -GameConstants.OUT_OF_SCREEN_MARGIN || positionableComponent.x > _stage.stageWidth + GameConstants.OUT_OF_SCREEN_MARGIN
+            || positionableComponent.y < -GameConstants.OUT_OF_SCREEN_MARGIN || positionableComponent.y > _stage.stageHeight + GameConstants.OUT_OF_SCREEN_MARGIN)
+            {
+                kill(entity);
+            }
         }
     }
 
@@ -213,6 +233,18 @@ public class GameController implements IGameController
             _gameModel.lastTimePlayerShot = currentTime;
             createBullet(_playerShip);
         }
+    }
+
+    public function pause():void
+    {
+        _paused = true;
+        _playerController.disable();
+    }
+
+    public function resume():void
+    {
+        _paused = false;
+        _playerController.enable();
     }
 }
 }

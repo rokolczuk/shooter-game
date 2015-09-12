@@ -7,6 +7,7 @@ import com.rokolczuk.shootergame.game.event.EntityViewEvent;
 import com.rokolczuk.shootergame.game.gameLogic.gameController.IGameController;
 
 import flash.events.Event;
+import flash.utils.setTimeout;
 
 import org.robotlegs.mvcs.Mediator;
 
@@ -27,6 +28,7 @@ public class ShooterGameViewMediator extends Mediator
         addViewListener(Event.ENTER_FRAME, enterFrameHandler);
         addContextListener(EntityViewEvent.CREATE_VIEW, bulletCreatedHandler);
         addContextListener(EntityViewEvent.DESTROY_VIEW, bulletDestroyedHandler);
+
     }
 
     override public function onRemove():void

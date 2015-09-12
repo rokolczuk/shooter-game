@@ -59,7 +59,7 @@ public class MousePlayerController implements IPlayerController
 
     private function mouseMoveHandler(event:MouseEvent):void
     {
-        _positionableComponent.x = _stage.mouseX;
+        _positionableComponent.x = Math.max(0, Math.min(_stage.mouseX, _stage.stageWidth));
     }
 }
 }
