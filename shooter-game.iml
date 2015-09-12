@@ -2,9 +2,17 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="shooter-game">
     <configurations>
-      <configuration name="shooter-game" pure-as="true" output-file="shooter-game.swf" output-folder="$MODULE_DIR$/out/production/shooter-game">
+      <configuration name="shooter-game" pure-as="true" main-class="com.rokolczuk.shootergame.ApplicationMain" output-file="shooter-game.swf" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="11.1">
-          <sdk name="flex_sdk_4.6" />
+          <entries>
+            <entry library-name="lib" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="swc" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="flex_sdk_4_6" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
@@ -19,7 +27,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="flex_sdk_4.6" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="flex_sdk_4_6" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="swc" level="project" />
   </component>
 </module>
