@@ -1,8 +1,10 @@
 /**
  * Created by rokolczuk on 12/09/15.
  */
-package com.rokolczuk.shootergame.game
+package com.rokolczuk.shootergame
 {
+import com.rokolczuk.shootergame.game.controller.ResetGameStateCommand;
+import com.rokolczuk.shootergame.game.event.GameEvent;
 import com.rokolczuk.shootergame.game.gameLogic.enemies.EnemiesEmmiter;
 import com.rokolczuk.shootergame.game.gameLogic.enemies.IEnemiesEmmiter;
 import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Player;
@@ -11,8 +13,14 @@ import com.rokolczuk.shootergame.game.gameLogic.gameController.IGameController;
 import com.rokolczuk.shootergame.game.gameLogic.playerController.IPlayerController;
 import com.rokolczuk.shootergame.game.gameLogic.playerController.MousePlayerController;
 import com.rokolczuk.shootergame.game.model.GameModel;
-import com.rokolczuk.shootergame.game.view.ShooterGameView;
-import com.rokolczuk.shootergame.game.view.ShooterGameViewMediator;
+import com.rokolczuk.shootergame.game.view.ApplicationView;
+import com.rokolczuk.shootergame.game.view.ApplicationViewMediator;
+import com.rokolczuk.shootergame.game.view.game.GameView;
+import com.rokolczuk.shootergame.game.view.game.GameViewMediator;
+import com.rokolczuk.shootergame.game.view.hud.HudView;
+import com.rokolczuk.shootergame.game.view.hud.HudViewMediator;
+import com.rokolczuk.shootergame.game.view.menu.MainMenuView;
+import com.rokolczuk.shootergame.game.view.menu.MainMenuViewMediator;
 
 import flash.display.DisplayObjectContainer;
 import flash.display.Stage;
@@ -36,6 +44,7 @@ public class ShooterGameContext extends Context
         mapCommands();
         mapGameActors();
         addRootView();
+
     }
 
     private function mapGameActors():void
@@ -48,6 +57,7 @@ public class ShooterGameContext extends Context
 
     private function mapCommands():void
     {
+         commandMap.mapEvent(GameEvent.START, ResetGameStateCommand);
 
     }
 
@@ -59,12 +69,15 @@ public class ShooterGameContext extends Context
 
     private function mapViews():void
     {
-        mediatorMap.mapView(ShooterGameView, ShooterGameViewMediator);
+        mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
+        mediatorMap.mapView(HudView, HudViewMediator);
+        mediatorMap.mapView(MainMenuView, MainMenuViewMediator);
+        mediatorMap.mapView(GameView, GameViewMediator);
     }
 
     private function addRootView() : void
     {
-        var shooterGameView : ShooterGameView = new ShooterGameView(injector.getInstance(Player));
+        var shooterGameView : ApplicationView = new ApplicationView();
         contextView.addChild(shooterGameView);
     }
 

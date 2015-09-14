@@ -9,6 +9,7 @@ import com.rokolczuk.shootergame.game.gameLogic.components.concrete.Positionable
 import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Player;
 
 import flash.display.Stage;
+import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import flash.geom.Point;
@@ -37,7 +38,7 @@ public class MousePlayerController implements IPlayerController
         if(!_active)
         {
             _stage.addEventListener(MouseEvent.CLICK, mouseClickHandler);
-            _stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+            _stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
             _active = true;
         }
     }
@@ -47,7 +48,7 @@ public class MousePlayerController implements IPlayerController
         if(_active)
         {
             _stage.removeEventListener(MouseEvent.CLICK, mouseClickHandler);
-            _stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+            _stage.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
             _active = false;
         }
     }
@@ -57,7 +58,7 @@ public class MousePlayerController implements IPlayerController
         _eventDispatcher.dispatchEvent(new PlayerShipEvent(PlayerShipEvent.TRY_TO_SHOOT));
     }
 
-    private function mouseMoveHandler(event:MouseEvent):void
+    private function enterFrameHandler(event:Event):void
     {
         _positionableComponent.x = Math.max(0, Math.min(_stage.mouseX, _stage.stageWidth));
     }

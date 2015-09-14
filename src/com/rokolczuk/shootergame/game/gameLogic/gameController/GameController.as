@@ -5,12 +5,14 @@ package com.rokolczuk.shootergame.game.gameLogic.gameController
 {
 import com.rokolczuk.shootergame.game.event.EnemyEvent;
 import com.rokolczuk.shootergame.game.event.EntityViewEvent;
+import com.rokolczuk.shootergame.game.event.HUDEvent;
 import com.rokolczuk.shootergame.game.event.PlayerShipEvent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.CollidableComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.DamageComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.HealthComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.MovingComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.PositionableComponent;
+import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ScoreComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ShootingComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ViewComponent;
 import com.rokolczuk.shootergame.game.gameLogic.enemies.IEnemiesEmmiter;
@@ -51,11 +53,20 @@ public class GameController implements IGameController
         _playerShip = playerShip;
         _enemiesEmmiter = enemiesEmmiter;
         _stage = stage;
-        _entities.push(playerShip);
-
-        _playerController.enable();
 
         mapEventListeners();
+    }
+
+    public function start():void
+    {
+        createPlayerEntity();
+        _playerController.enable();
+    }
+
+    private function createPlayerEntity():void
+    {
+        _entities.push(_playerShip);
+        _eventDispatcher.dispatchEvent(new EntityViewEvent(EntityViewEvent.CREATE_VIEW, ViewComponent(_playerShip.getComponent(ViewComponent))));
     }
 
     public function update():void
@@ -75,7 +86,18 @@ public class GameController implements IGameController
             checkCollisionsFor(entity);
             shootBullet(entity);
             removeIfOutOfBounds(entity);
+        }
 
+        if(_gameModel.playerDead)
+        {
+            _gameModel.numFramesSincePlayerDied++;
+
+            if(_gameModel.numFramesSincePlayerDied >= GameConstants.PLAYER_NUM_FRAMES_TO_RESPAWN)
+            {
+                _gameModel.playerDead = false;
+                _playerController.enable();
+                createPlayerEntity();
+            }
         }
     }
 
@@ -181,8 +203,37 @@ public class GameController implements IGameController
 
     private function kill(entity:GameEntity):void
     {
+        if(entity.hasComponent(ScoreComponent))
+        {
+            grantScore(ScoreComponent(entity.getComponent(ScoreComponent)));
+        }
+
         _entities.splice(_entities.indexOf(entity), 1);
         _eventDispatcher.dispatchEvent(new EntityViewEvent(EntityViewEvent.DESTROY_VIEW, ViewComponent(entity.getComponent(ViewComponent))));
+
+        if(entity == _playerShip)
+        {
+            looseLife();
+        }
+    }
+
+    private function looseLife():void
+    {
+        if(_gameModel.numLives > 0)
+        {
+            _gameModel.numLives--;
+            _gameModel.playerDead = true;
+            _gameModel.numFramesSincePlayerDied = 0;
+
+            _playerController.disable();
+            _eventDispatcher.dispatchEvent(new HUDEvent(HUDEvent.UPDATE));
+        }
+    }
+
+    private function grantScore(scoreComponent:ScoreComponent):void
+    {
+        _gameModel.score += scoreComponent.score;
+        _eventDispatcher.dispatchEvent(new HUDEvent(HUDEvent.UPDATE));
     }
 
     public function dispose():void
@@ -210,11 +261,11 @@ public class GameController implements IGameController
 
     private function createBullet(emitterEntity:GameEntity):void
     {
-        var positionableComponent = emitterEntity.getComponent(PositionableComponent) as PositionableComponent;
-        var shootingComponent = emitterEntity.getComponent(ShootingComponent) as ShootingComponent;
-        var collidableComponent = emitterEntity.getComponent(CollidableComponent) as CollidableComponent;
+        var positionableComponent:PositionableComponent = emitterEntity.getComponent(PositionableComponent) as PositionableComponent;
+        var shootingComponent:ShootingComponent = emitterEntity.getComponent(ShootingComponent) as ShootingComponent;
+        var collidableComponent:CollidableComponent = emitterEntity.getComponent(CollidableComponent) as CollidableComponent;
 
-        var bulletPosition = new Point(positionableComponent.x + shootingComponent.offset.x, positionableComponent.y + shootingComponent.offset.y);
+        var bulletPosition:Point = new Point(positionableComponent.x + shootingComponent.offset.x, positionableComponent.y + shootingComponent.offset.y);
         var bulletView:MovieClip = new (shootingComponent.bulletSymbolClass);
 
         var bullet:Bullet = new Bullet(bulletView, collidableComponent.collisionMask, bulletPosition, shootingComponent.bulletSpeed, bulletView.bounds);
