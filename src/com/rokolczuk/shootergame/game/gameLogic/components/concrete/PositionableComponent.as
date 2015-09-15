@@ -12,7 +12,7 @@ public class PositionableComponent extends Component
     private var _x:Number;
     private var _y:Number;
 
-    public function PositionableComponent(position:Point)
+    public function PositionableComponent(position:Point = null)
     {
         super();
 

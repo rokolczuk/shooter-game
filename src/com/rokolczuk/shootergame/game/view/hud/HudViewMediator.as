@@ -40,8 +40,8 @@ public class HudViewMediator extends Mediator
 
     private function updateHud():void
     {
-        _view.score = _gameModel.score;
-        _view.numLives = _gameModel.numLives;
+        _view.score = _gameModel.score.getValue();
+        _view.numLives = _gameModel.numLives.getValue();
     }
 }
 }

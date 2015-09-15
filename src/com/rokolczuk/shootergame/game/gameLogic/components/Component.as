@@ -7,7 +7,7 @@ import com.rokolczuk.shootergame.game.gameLogic.entities.GameEntity;
 
 public class Component
 {
-    private var _entity:GameEntity;
+    protected var _entity:GameEntity;
 
     public function Component()
     {

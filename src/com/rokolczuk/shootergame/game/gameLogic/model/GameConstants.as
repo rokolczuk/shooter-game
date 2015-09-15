@@ -16,6 +16,7 @@ public class GameConstants
    public static const PLAYER_HEALTH:Number = 1;
    public static const NUM_LIVES:uint = 3;
    public static const PLAYER_NUM_FRAMES_TO_RESPAWN:uint = 180;
+   public static const PLAYER_NUM_FRAMES_IS_INVULNURABLE:uint = 200;
 
    public static const ENEMIES_SPAWN_Y:int = - 10;
    public static const ENEMY_BULLET_SPEED:Point = new Point(0, 6);

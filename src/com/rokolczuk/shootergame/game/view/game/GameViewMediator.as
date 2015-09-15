@@ -6,6 +6,7 @@ package com.rokolczuk.shootergame.game.view.game
 import com.rokolczuk.shootergame.game.event.EntityViewEvent;
 import com.rokolczuk.shootergame.game.event.GameEvent;
 import com.rokolczuk.shootergame.game.gameLogic.gameController.IGameController;
+import com.rokolczuk.shootergame.game.view.game.event.PauseButtonEvent;
 
 import flash.events.Event;
 
@@ -37,6 +38,7 @@ public class GameViewMediator extends Mediator
         addContextListener(EntityViewEvent.DESTROY_VIEW, entityViewDestroyedHandler);
 
         addViewListener(Event.ENTER_FRAME, enterFrameHandler);
+        addViewListener(PauseButtonEvent.CLICKED, pausedButtonClickHandler);
     }
 
     override public function onRemove():void
@@ -48,6 +50,7 @@ public class GameViewMediator extends Mediator
         removeContextListener(EntityViewEvent.DESTROY_VIEW, entityViewDestroyedHandler);
 
         removeViewListener(Event.ENTER_FRAME, enterFrameHandler);
+        removeViewListener(PauseButtonEvent.CLICKED, pausedButtonClickHandler);
     }
 
     private function enterFrameHandler(event:Event):void
@@ -56,6 +59,12 @@ public class GameViewMediator extends Mediator
         {
             _gameController.update();
         }
+    }
+
+    private function pausedButtonClickHandler(event:PauseButtonEvent):void
+    {
+        _gameRunning = !_gameRunning;
+        dispatch(new GameEvent(_gameRunning ? GameEvent.RESUME : GameEvent.PAUSE));
     }
 
     private function gameOverHandler(event:GameEvent):void

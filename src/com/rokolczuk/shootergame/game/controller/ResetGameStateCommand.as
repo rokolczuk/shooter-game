@@ -22,8 +22,8 @@ public class ResetGameStateCommand extends Command
 
     override public function execute():void
     {
-        _gameModel.numLives = GameConstants.NUM_LIVES;
-        _gameModel.score = 0;
+        _gameModel.numLives.setValue(GameConstants.NUM_LIVES);
+        _gameModel.score.setValue(0);
 
         dispatch(new HUDEvent(HUDEvent.UPDATE));
     }

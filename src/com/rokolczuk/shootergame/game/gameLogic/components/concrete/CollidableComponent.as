@@ -29,5 +29,10 @@ public class CollidableComponent extends Component
     {
         return _bounds;
     }
+
+    public function set collisionMask(value:uint):void
+    {
+        _collisionMask = value;
+    }
 }
 }

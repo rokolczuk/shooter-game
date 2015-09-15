@@ -5,9 +5,12 @@ package com.rokolczuk.shootergame.game.gameLogic.enemies
 {
 import com.rokolczuk.shootergame.game.event.EnemyEvent;
 import com.rokolczuk.shootergame.game.event.EntityViewEvent;
+import com.rokolczuk.shootergame.game.gameLogic.components.concrete.MovingComponent;
+import com.rokolczuk.shootergame.game.gameLogic.components.concrete.PositionableComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ViewComponent;
 import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Enemy;
 import com.rokolczuk.shootergame.game.gameLogic.model.GameConstants;
+import com.rokolczuk.shootergame.game.util.Pools;
 
 import flash.display.Stage;
 
@@ -38,9 +41,14 @@ public class EnemiesEmmiter implements IEnemiesEmmiter
         var enemyPosition:Point = new Point(GameConstants.ENEMY_SPAWN_MARGIN_X + Math.random() * (_stage.stageWidth - 2 * GameConstants.ENEMY_SPAWN_MARGIN_X), GameConstants.ENEMIES_SPAWN_Y);
         var enemySpeed:Point = new Point(0, GameConstants.ENEMY_MIN_SPEED_Y + Math.random() * (GameConstants.ENEMY_MAX_SPEED_Y - GameConstants.ENEMY_MIN_SPEED_Y));
 
-        var enemy:Enemy = new Enemy(enemyPosition, enemySpeed);
+        var enemy:Enemy = Enemy(Pools.ENEMIES_POOL.get());
+
+        PositionableComponent(enemy.getComponent(PositionableComponent)).x = enemyPosition.x;
+        PositionableComponent(enemy.getComponent(PositionableComponent)).y = enemyPosition.y;
+        MovingComponent(enemy.getComponent(MovingComponent)).speedVector = enemySpeed;
 
         _eventDispatcher.dispatchEvent(new EnemyEvent(EnemyEvent.SPAWN, enemy));
     }
+
 }
 }

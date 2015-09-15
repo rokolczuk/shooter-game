@@ -16,6 +16,11 @@ public class HudView extends Sprite
     public function HudView(hudSymbol:HUDSymbol)
     {
         _hudSymbol = hudSymbol;
+        initHudView();
+    }
+
+    private function initHudView():void
+    {
         addChild(_hudSymbol);
         new LazyMediatorActivator(this);
     }

@@ -5,12 +5,14 @@ package com.rokolczuk.shootergame.game.gameLogic.gameController
 {
 import com.rokolczuk.shootergame.game.event.EnemyEvent;
 import com.rokolczuk.shootergame.game.event.EntityViewEvent;
+import com.rokolczuk.shootergame.game.event.GameEvent;
 import com.rokolczuk.shootergame.game.event.HUDEvent;
 import com.rokolczuk.shootergame.game.event.PlayerShipEvent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.CollidableComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.DamageComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.HealthComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.MovingComponent;
+import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ObjectPoolComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.PositionableComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ScoreComponent;
 import com.rokolczuk.shootergame.game.gameLogic.components.concrete.ShootingComponent;
@@ -22,6 +24,7 @@ import com.rokolczuk.shootergame.game.gameLogic.entities.concrete.Player;
 import com.rokolczuk.shootergame.game.gameLogic.model.GameConstants;
 import com.rokolczuk.shootergame.game.gameLogic.playerController.IPlayerController;
 import com.rokolczuk.shootergame.game.model.GameModel;
+import com.rokolczuk.shootergame.game.util.Pools;
 
 import flash.display.MovieClip;
 import flash.display.Stage;
@@ -59,7 +62,13 @@ public class GameController implements IGameController
 
     public function start():void
     {
+        while(_entities.length > 0)
+        {
+            removeEntity(_entities[0]);
+        }
+
         createPlayerEntity();
+
         _playerController.enable();
     }
 
@@ -67,6 +76,9 @@ public class GameController implements IGameController
     {
         _entities.push(_playerShip);
         _eventDispatcher.dispatchEvent(new EntityViewEvent(EntityViewEvent.CREATE_VIEW, ViewComponent(_playerShip.getComponent(ViewComponent))));
+        _gameModel.numFramesPlayerIsInvulnurable = 0;
+        HealthComponent(_playerShip.getComponent(HealthComponent)).invulnurable = true;
+        HealthComponent(_playerShip.getComponent(HealthComponent)).respawn();
     }
 
     public function update():void
@@ -99,6 +111,19 @@ public class GameController implements IGameController
                 createPlayerEntity();
             }
         }
+        else if(HealthComponent(_playerShip.getComponent(HealthComponent)).invulnurable)
+        {
+            _gameModel.numFramesPlayerIsInvulnurable++;
+
+            if(_gameModel.numFramesPlayerIsInvulnurable < GameConstants.PLAYER_NUM_FRAMES_IS_INVULNURABLE)
+            {
+                ViewComponent(_playerShip.getComponent(ViewComponent)).getView().alpha = Math.floor(_gameModel.numFramesPlayerIsInvulnurable / 5) % 2 ? 1 : 0.5;
+            }
+            else
+            {
+                HealthComponent(_playerShip.getComponent(HealthComponent)).invulnurable = false;
+            }
+        }
     }
 
     private function removeIfOutOfBounds(entity:GameEntity):void
@@ -110,7 +135,7 @@ public class GameController implements IGameController
             if(positionableComponent.x < -GameConstants.OUT_OF_SCREEN_MARGIN || positionableComponent.x > _stage.stageWidth + GameConstants.OUT_OF_SCREEN_MARGIN
             || positionableComponent.y < -GameConstants.OUT_OF_SCREEN_MARGIN || positionableComponent.y > _stage.stageHeight + GameConstants.OUT_OF_SCREEN_MARGIN)
             {
-                kill(entity);
+                removeEntity(entity);
             }
         }
     }
@@ -176,21 +201,10 @@ public class GameController implements IGameController
 
                            if (collidableRect.intersects(otherCollidableRect))
                            {
-                               var healthComponent:HealthComponent = HealthComponent(entity.getComponent(HealthComponent));
-                               var damageComponent:DamageComponent = DamageComponent(entity.getComponent(DamageComponent));
-                               var otherHealthComponent:HealthComponent = HealthComponent(_entities[i].getComponent(HealthComponent));
-                               var otherDamageComponent:DamageComponent = DamageComponent(_entities[i].getComponent(DamageComponent));
+                               var hasEntitityDied:Boolean = handleCollision(entity, _entities[i]);
 
-                               healthComponent.applyDamage(otherDamageComponent.damage);
-                               otherHealthComponent.applyDamage(damageComponent.damage);
-
-                               if(!otherHealthComponent.isAlive())
+                               if(hasEntitityDied)
                                {
-                                   kill(_entities[i]);
-                               }
-                               if(!healthComponent.isAlive())
-                               {
-                                   kill(entity);
                                    return;
                                }
                            }
@@ -201,6 +215,28 @@ public class GameController implements IGameController
         }
     }
 
+    private function handleCollision(entity:GameEntity, otherEntity:GameEntity):Boolean
+    {
+        var healthComponent:HealthComponent = HealthComponent(entity.getComponent(HealthComponent));
+        var damageComponent:DamageComponent = DamageComponent(entity.getComponent(DamageComponent));
+        var otherHealthComponent:HealthComponent = HealthComponent(otherEntity.getComponent(HealthComponent));
+        var otherDamageComponent:DamageComponent = DamageComponent(otherEntity.getComponent(DamageComponent));
+
+        if(!healthComponent.invulnurable) healthComponent.applyDamage(otherDamageComponent.damage);
+        if(!otherHealthComponent.invulnurable) otherHealthComponent.applyDamage(damageComponent.damage);
+
+        if(!otherHealthComponent.isAlive())
+        {
+            kill(otherEntity);
+        }
+        if(!healthComponent.isAlive())
+        {
+            kill(entity);
+            return true;
+        }
+        return false;
+    }
+
     private function kill(entity:GameEntity):void
     {
         if(entity.hasComponent(ScoreComponent))
@@ -208,8 +244,7 @@ public class GameController implements IGameController
             grantScore(ScoreComponent(entity.getComponent(ScoreComponent)));
         }
 
-        _entities.splice(_entities.indexOf(entity), 1);
-        _eventDispatcher.dispatchEvent(new EntityViewEvent(EntityViewEvent.DESTROY_VIEW, ViewComponent(entity.getComponent(ViewComponent))));
+        removeEntity(entity);
 
         if(entity == _playerShip)
         {
@@ -217,22 +252,38 @@ public class GameController implements IGameController
         }
     }
 
+    private function removeEntity(entity:GameEntity):void
+    {
+        _entities.splice(_entities.indexOf(entity), 1);
+        _eventDispatcher.dispatchEvent(new EntityViewEvent(EntityViewEvent.DESTROY_VIEW, ViewComponent(entity.getComponent(ViewComponent))));
+
+        if(entity.hasComponent(ObjectPoolComponent))
+        {
+            ObjectPoolComponent(entity.getComponent(ObjectPoolComponent)).putBack();
+        }
+    }
+
     private function looseLife():void
     {
-        if(_gameModel.numLives > 0)
+        _gameModel.numLives.subtract(1);
+
+        if(_gameModel.numLives.getValue() > 0)
         {
-            _gameModel.numLives--;
             _gameModel.playerDead = true;
             _gameModel.numFramesSincePlayerDied = 0;
 
             _playerController.disable();
             _eventDispatcher.dispatchEvent(new HUDEvent(HUDEvent.UPDATE));
         }
+        else
+        {
+            _eventDispatcher.dispatchEvent(new GameEvent(GameEvent.GAME_OVER));
+        }
     }
 
     private function grantScore(scoreComponent:ScoreComponent):void
     {
-        _gameModel.score += scoreComponent.score;
+        _gameModel.score.add( scoreComponent.score);
         _eventDispatcher.dispatchEvent(new HUDEvent(HUDEvent.UPDATE));
     }
 
@@ -266,9 +317,12 @@ public class GameController implements IGameController
         var collidableComponent:CollidableComponent = emitterEntity.getComponent(CollidableComponent) as CollidableComponent;
 
         var bulletPosition:Point = new Point(positionableComponent.x + shootingComponent.offset.x, positionableComponent.y + shootingComponent.offset.y);
-        var bulletView:MovieClip = new (shootingComponent.bulletSymbolClass);
 
-        var bullet:Bullet = new Bullet(bulletView, collidableComponent.collisionMask, bulletPosition, shootingComponent.bulletSpeed, bulletView.bounds);
+        var bullet:Bullet = Pools.BULLETS_POOL.get() as Bullet;
+        PositionableComponent(bullet.getComponent(PositionableComponent)).x = bulletPosition.x;
+        PositionableComponent(bullet.getComponent(PositionableComponent)).y = bulletPosition.y;
+        MovingComponent(bullet.getComponent(MovingComponent)).speedVector = shootingComponent.bulletSpeed;
+        CollidableComponent(bullet.getComponent(CollidableComponent)).collisionMask = collidableComponent.collisionMask;
 
         _entities.push(bullet);
 

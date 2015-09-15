@@ -17,6 +17,8 @@ import com.rokolczuk.shootergame.game.view.ApplicationView;
 import com.rokolczuk.shootergame.game.view.ApplicationViewMediator;
 import com.rokolczuk.shootergame.game.view.game.GameView;
 import com.rokolczuk.shootergame.game.view.game.GameViewMediator;
+import com.rokolczuk.shootergame.game.view.gameOverPopup.GameOverPopupView;
+import com.rokolczuk.shootergame.game.view.gameOverPopup.GameOverPopupViewMediator;
 import com.rokolczuk.shootergame.game.view.hud.HudView;
 import com.rokolczuk.shootergame.game.view.hud.HudViewMediator;
 import com.rokolczuk.shootergame.game.view.menu.MainMenuView;
@@ -73,12 +75,13 @@ public class ShooterGameContext extends Context
         mediatorMap.mapView(HudView, HudViewMediator);
         mediatorMap.mapView(MainMenuView, MainMenuViewMediator);
         mediatorMap.mapView(GameView, GameViewMediator);
+        mediatorMap.mapView(GameOverPopupView, GameOverPopupViewMediator);
     }
 
     private function addRootView() : void
     {
-        var shooterGameView : ApplicationView = new ApplicationView();
-        contextView.addChild(shooterGameView);
+        var applicationView : ApplicationView = new ApplicationView();
+        contextView.addChild(applicationView);
     }
 
     override protected function get mediatorMap() : IMediatorMap
